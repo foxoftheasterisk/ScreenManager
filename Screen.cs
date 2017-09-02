@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 
-namespace ScreenManager
+namespace Screens
 {
     public interface Screen
     {
