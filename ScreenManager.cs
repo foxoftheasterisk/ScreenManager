@@ -37,7 +37,8 @@ namespace Screens
 
         public void update()
         {
-
+            if (screenStack.Count == 0)
+                return;
 
             foreach(Screen screen in screenStack)
             {
