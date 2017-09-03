@@ -71,7 +71,9 @@ namespace Screens
 
             while(drawStack.Count != 0)
             {
+                drawer.Begin();
                 drawStack.Pop().draw(drawer);
+                drawer.End();
             }
         }
 
