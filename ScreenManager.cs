@@ -59,7 +59,7 @@ namespace Screens
             }
         }
 
-        public void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch drawer, Microsoft.Xna.Framework.Graphics.SamplerState samplerState)
+        public void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch drawer, Microsoft.Xna.Framework.Graphics.SpriteSortMode sortMode, Microsoft.Xna.Framework.Graphics.SamplerState samplerState)
         {
             Stack<Screen> drawStack = new Stack<Screen>();
             foreach(Screen screen in screenStack)
@@ -71,7 +71,7 @@ namespace Screens
 
             while(drawStack.Count != 0)
             {
-                drawer.Begin(Microsoft.Xna.Framework.Graphics.SpriteSortMode.Deferred, null, samplerState);  //defaults except SamplerState
+                drawer.Begin(sortMode, null, samplerState);  //defaults except SamplerState
                 drawStack.Pop().draw(drawer);
                 drawer.End();
             }
