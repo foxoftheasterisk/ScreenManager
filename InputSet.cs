@@ -26,7 +26,7 @@ namespace Screens
         {
             foreach (InputItem input in inputs)
             {
-                if (input.Matches(identifier))
+                if (identifier.Matches(input))
                     return true;
             }
             return false;
@@ -42,7 +42,7 @@ namespace Screens
         {
             foreach (InputItem input in inputs)
             {
-                if (input.Matches(identifier))
+                if (identifier.Matches(input))
                     return input;
             }
             return null;
@@ -57,7 +57,7 @@ namespace Screens
         {
             for (int i = 0; i < inputs.Count; i++)
             {
-                if (inputs[i].Matches(identifier))
+                if (identifier.Matches(inputs[i]))
                 {
                     InputItem item = inputs[i];
                     inputs.RemoveAt(i);
@@ -72,7 +72,7 @@ namespace Screens
             List<InputItem> items = new List<InputItem>();
             foreach (InputItem input in inputs)
             {
-                if (input.Matches(identifier))
+                if (identifier.Matches(input))
                     items.Add(input);
             }
             return items;
@@ -83,7 +83,7 @@ namespace Screens
             List<InputItem> items = new List<InputItem>();
             for (int i = 0; i < inputs.Count; i++)
             {
-                if (inputs[i].Matches(identifier))
+                if (identifier.Matches(inputs[i]))
                 {
                     items.Add(inputs[i]);
                     inputs.RemoveAt(i);
@@ -96,9 +96,11 @@ namespace Screens
         /// <summary>
         /// Removes the entire remaining list of inputs.
         /// </summary>
-        public void ConsumeAll()
+        public List<InputItem> ConsumeAll()
         {
+            List<InputItem> oldInputs = inputs;
             inputs = new List<InputItem>();
+            return oldInputs;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Screens
         {
             //this is probably safe to do in one line, but i don't want to risk it.
             Layer<T> top = new Layer<T>(head, item);
-            top = head;
+            head = top;
             count++;
         }
 
