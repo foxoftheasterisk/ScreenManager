@@ -23,56 +23,61 @@ namespace Screens
             }
         }
 
-        Stack<Screen> screenStack;
+        JengaStack<Screen> screenStack;
+        //still *mostly* a logical stack,
+        //but things can be removed from the middle - if they get an Update call, anyway.
 
         private ScreenManager()
         {
-            screenStack = new Stack<Screen>();
+            screenStack = new JengaStack<Screen>();
         }
 
-        public void push(Screen screen)
+        public void Push(Screen screen)
         {
             screenStack.Push(screen);
         }
 
-        public void update()
+        public void Update(InputSet inputs)
         {
             if (screenStack.Count == 0)
                 return;
 
+            List<Screen> toClose = new List<Screen>();
+            bool update = true;
             foreach(Screen screen in screenStack)
             {
-                bool stop;
-                if (screen == screenStack.Peek())
-                    stop = !screen.update(true);
+                bool close;
+
+                if (update)
+                    (update, close) = screen.Update(inputs);
                 else
-                    stop = !screen.update(false);
-                if (stop)
-                    break;
+                    close = screen.ShouldClose();
+
+                if (close)
+                    toClose.Add(screen);
             }
 
-            while(true)
+            foreach(Screen screen in toClose)
             {
-                if (!screenStack.Peek().shouldClose())
-                    break;
-                screenStack.Pop();
+                screen.Close();
+                screenStack.Remove(screen);
             }
         }
 
-        public void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch drawer, Microsoft.Xna.Framework.Graphics.SpriteSortMode sortMode, Microsoft.Xna.Framework.Graphics.SamplerState samplerState)
+        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch drawer, Microsoft.Xna.Framework.Graphics.SpriteSortMode sortMode, Microsoft.Xna.Framework.Graphics.SamplerState samplerState)
         {
             Stack<Screen> drawStack = new Stack<Screen>();
             foreach(Screen screen in screenStack)
             {
                 drawStack.Push(screen);
-                if (!screen.drawUnder())
+                if (!screen.DrawUnder())
                     break;
             }
 
             while(drawStack.Count != 0)
             {
-                drawer.Begin(sortMode, null, samplerState);  //defaults except SamplerState
-                drawStack.Pop().draw(drawer);
+                drawer.Begin(sortMode, null, samplerState);
+                drawStack.Pop().Draw(drawer);
                 drawer.End();
             }
         }

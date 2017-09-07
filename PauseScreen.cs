@@ -12,49 +12,55 @@ namespace Screens
 {
     class PauseScreen : Screen
     {
-        PauseScreen(Texture2D _overlay, Color _tint)
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="_overlay"></param>
+        /// <param name="_tint"></param>
+        /// <param name="endPause"></param>
+        PauseScreen(Texture2D _overlay, Color _tint, IInputIdentifier endPause)
         {
             overlay = _overlay;
             tint = _tint;
+            closingInput = endPause;
         }
 
+        //for a pure tint overlay, pass a pure white pixel
         Texture2D overlay;
         Color tint;
-        bool close = false;
+        IInputIdentifier closingInput;
 
         //pauses the game... forEVer!
-        public bool update(bool useInput)
+        public (bool updateBelow, bool shouldClose) Update(InputSet input)
         {
-            KeyboardState keys;
-            try
-            {
-                keys = Keyboard.GetState();
-            }
-            catch (InvalidOperationException)
-            {
-                keys = new KeyboardState();//bad idea??
-            }
+            //it almost really was forever
+            //but then I remembered: input identifiers can be passed in!
 
-            if (keys.IsKeyDown(Keys.Enter))
+            bool close = false;
+            if (input.Has(closingInput))
                 close = true;
 
-            return false;
+            return (false, close);
         }
 
-        public bool drawUnder()
+        public bool DrawUnder()
         {
             return true;
         }
 
-        public void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch drawer)
+        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch drawer)
         {
             if(overlay != null)
                 drawer.Draw(overlay, drawer.GraphicsDevice.Viewport.Bounds, tint);
         }
 
-        public bool shouldClose()
+        public bool ShouldClose()
         {
-            return close;
+            return false;
         }
+
+        public void Close()
+        { }
     }
 }

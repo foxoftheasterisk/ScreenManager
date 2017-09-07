@@ -18,7 +18,7 @@ namespace Screens
             if(activeScreen == null)
             {
                 activeScreen = new LoadingScreen(message);
-                ScreenManager.screenManager.push(activeScreen);
+                ScreenManager.screenManager.Push(activeScreen);
             }
             else
             {
@@ -43,15 +43,12 @@ namespace Screens
             font = _font;
         }
 
-        public static void Close()
+        public static void EndLoading()
         {
             activeScreen.hardClose = true;
         }
 
         private string message;
-        private bool isActive = true; 
-        //closes the screen if it doesn't get an update call
-        //...for some reason
 
         private bool hardClose = false;
 
@@ -61,18 +58,18 @@ namespace Screens
             font = null;
         }
 
-        public bool update(bool useInput)
+        public (bool updateBelow, bool shouldClose) Update(InputSet input)
         {
-            isActive = true;
-            return false; //...i think
+            input.ConsumeAll(); //generally you don't want whatever might be under a loading screen to respond to input
+            return (false, hardClose);
         }
 
-        public bool drawUnder()
+        public bool DrawUnder()
         {
             return false;
         }
 
-        public void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch drawer)
+        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch drawer)
         {
             drawer.GraphicsDevice.Clear(new Microsoft.Xna.Framework.Color(0, 0, 200));
             //TODO: make this customizeable
@@ -84,15 +81,14 @@ namespace Screens
             //TODO: probably also font color
         }
 
-        public bool shouldClose()
+        public bool ShouldClose()
         {
-            if(!hardClose && isActive)
-            {
-                isActive = false;
-                return false;
-            }
-            activeScreen = null;
             return true;
+        }
+
+        public void Close()
+        {
+            activeScreen = null;
         }
     }
 }
