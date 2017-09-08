@@ -32,6 +32,11 @@ namespace Screens
             return false;
         }
 
+        public bool IsEmpty()
+        {
+            return inputs.Count == 0;
+        }
+
         /// <summary>
         /// Returns the first InputItem that matches the passed Identifier without removing it from the InputSet.
         /// Not recommended for most uses.
