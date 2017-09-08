@@ -41,16 +41,21 @@ namespace Screens
         /// Returns the first InputItem that matches the passed Identifier without removing it from the InputSet.
         /// Not recommended for most uses.
         /// </summary>
+        /// <param name="match"></param>
         /// <param name="identifier"></param>
-        /// <returns>The first InputItem that matches, or null if none does.</returns>
-        public InputItem View(IInputIdentifier identifier)
+        /// <returns>If a match was found</returns>
+        public bool View(out InputItem match, IInputIdentifier identifier)
         {
             foreach (InputItem input in inputs)
             {
                 if (identifier.Matches(input))
-                    return input;
+                {
+                    match = input;
+                    return true;
+                }
             }
-            return null;
+            match = null;
+            return false;
         }
 
         /// <summary>
@@ -58,7 +63,7 @@ namespace Screens
         /// </summary>
         /// <param name="identifier"></param>
         /// <returns>The first InputItem that matches, or null if none does.</returns>
-        public InputItem Consume(IInputIdentifier identifier)
+        public bool Consume(out InputItem match, IInputIdentifier identifier)
         {
             for (int i = 0; i < inputs.Count; i++)
             {
@@ -66,26 +71,33 @@ namespace Screens
                 {
                     InputItem item = inputs[i];
                     inputs.RemoveAt(i);
-                    return item;
+                    match = item;
+                    return true;
                 }
             }
-            return null;
+            match = null;
+            return false;
         }
 
-        public List<InputItem> ViewAllMatches(IInputIdentifier identifier)
+        public bool ViewAllMatches(out List<InputItem> items, IInputIdentifier identifier)
         {
-            List<InputItem> items = new List<InputItem>();
+            bool foundAny = false;
+            items = new List<InputItem>();
             foreach (InputItem input in inputs)
             {
                 if (identifier.Matches(input))
+                {
                     items.Add(input);
+                    foundAny = true;
+                }
             }
-            return items;
+            return foundAny;
         }
 
-        public List<InputItem> ConsumeAllMatches(IInputIdentifier identifier)
+        public bool ConsumeAllMatches(out List<InputItem> items, IInputIdentifier identifier)
         {
-            List<InputItem> items = new List<InputItem>();
+            bool foundAny = false;
+            items = new List<InputItem>();
             for (int i = 0; i < inputs.Count; i++)
             {
                 if (identifier.Matches(inputs[i]))
@@ -93,9 +105,10 @@ namespace Screens
                     items.Add(inputs[i]);
                     inputs.RemoveAt(i);
                     i--;
+                    foundAny = true;
                 }
             }
-            return items;
+            return foundAny;
         }
 
         /// <summary>
