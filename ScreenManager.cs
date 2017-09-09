@@ -23,9 +23,11 @@ namespace Screens
             }
         }
 
-        JengaStack<Screen> screenStack;
+        private JengaStack<Screen> screenStack;
         //still *mostly* a logical stack,
         //but things can be removed from the middle - if they get an Update call, anyway.
+
+        private IInputRetainer retainer;
 
         private ScreenManager()
         {
@@ -37,8 +39,27 @@ namespace Screens
             screenStack.Push(screen);
         }
 
+        public void RetainInput(IInputRetainer _retainer)
+        {
+            if (retainer != null)
+                throw new InvalidOperationException("Something is already retaining input!");
+
+            retainer = _retainer;
+        }
+
+        public void EndRetainedInput(IInputRetainer _retainer)
+        {
+            if (_retainer != retainer)
+                throw new InvalidOperationException("This is not retaining input!");
+
+            retainer = null;
+        }
+
         public void Update(InputSet inputs)
         {
+            if (retainer != null)
+                retainer.HandleRetainedInput(inputs);
+
             if (screenStack.Count == 0)
                 return;
 

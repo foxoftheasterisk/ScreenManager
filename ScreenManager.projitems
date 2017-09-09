@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)InputItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InputRetainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InputSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)JengaStack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoadingScreen.cs" />
