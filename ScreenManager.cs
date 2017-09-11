@@ -39,6 +39,11 @@ namespace Screens
             screenStack.Push(screen);
         }
 
+        public bool HasRetainer()
+        {
+            return retainer != null;
+        }
+
         public void RetainInput(IInputRetainer _retainer)
         {
             if (retainer != null)
