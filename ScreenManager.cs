@@ -44,6 +44,11 @@ namespace Screens
             return retainer != null;
         }
 
+        public bool IsEmpty()
+        {
+            return screenStack.Count == 0;
+        }
+
         public void RetainInput(IInputRetainer _retainer)
         {
             if (retainer != null)
