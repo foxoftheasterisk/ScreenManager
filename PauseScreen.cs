@@ -19,7 +19,7 @@ namespace Screens
         /// <param name="_overlay"></param>
         /// <param name="_tint"></param>
         /// <param name="endPause"></param>
-        PauseScreen(Texture2D _overlay, Color _tint, IInputIdentifier endPause)
+        public PauseScreen(Texture2D _overlay, Color _tint, IInputIdentifier endPause)
         {
             overlay = _overlay;
             tint = _tint;
