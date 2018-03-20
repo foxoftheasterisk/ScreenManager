@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Screens
+namespace ScreenManagement
 {
     class LoadingScreen : Screen
     {

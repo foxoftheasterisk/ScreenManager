@@ -8,17 +8,21 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Screens
+namespace ScreenManagement
 {
+    /// <summary>
+    /// A very basic pause screen that displays a tinted overlay.
+    /// Closes when it recieves an input defined on construction.
+    /// </summary>
     class PauseScreen : Screen
     {
 
         /// <summary>
-        ///
+        /// Creates a new PauseScreen with the defined parameters.
         /// </summary>
-        /// <param name="_overlay"></param>
-        /// <param name="_tint"></param>
-        /// <param name="endPause"></param>
+        /// <param name="_overlay">The overlay to use.  For pure tint, pass a pure white pixel.</param>
+        /// <param name="_tint">The color to tint the overlay.</param>
+        /// <param name="endPause">The input that will cause the screen to close.</param>
         public PauseScreen(Texture2D _overlay, Color _tint, IInputIdentifier endPause)
         {
             overlay = _overlay;

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Screens
+namespace ScreenManagement
 {
-    //so alliterative!
 
     /// <summary>
     /// represents a single piece of input - say, a mouse position or click, or a gesture on a touchscreen

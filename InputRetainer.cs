@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Screens
+namespace ScreenManagement
 {
     /// <summary>
     /// An interface for any class -Screen or not - that wants to capture input that lasts multiple frames.

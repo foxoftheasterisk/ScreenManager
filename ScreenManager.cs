@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using System.Collections.Generic;
 
-namespace Screens
+namespace ScreenManagement
 { 
     class ScreenManager
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Screens
+namespace ScreenManagement
 {
     /// <summary>
     /// so named because, like a stack, whatever was last added is at the front...

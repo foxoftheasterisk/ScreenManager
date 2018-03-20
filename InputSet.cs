@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Screens
+namespace ScreenManagement
 {
     /// <summary>
     /// Represents all input for a single frame.
